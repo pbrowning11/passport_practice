@@ -2,13 +2,13 @@ import validator from "validator";
 
 const authController = {
 
-    validateSignIn = (userInfo) => {
+    validateSignUp: (userInfo) => {
         const errors = {};
         let isFormValid = true;
         let message = "";
     
         if (!userInfo || typeof userInfo.email !== "string" || !validator.isEmail(userInfo.email)) {
-            ifFormValid = false;
+            isFormValid = false;
             errors.email = "Please give a valid email address.";
         }
     
@@ -38,7 +38,7 @@ const authController = {
         };
     },
     
-    validateLogin = (userInfo) => {
+    validateLogin: (userInfo) => {
         const errors = {};
         let isFormValid = true;
         let message = "";
@@ -65,10 +65,5 @@ const authController = {
     }
 
 }
-
-
-
-
-
 
 export default authController;

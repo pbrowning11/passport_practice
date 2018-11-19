@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import sequelize from "sequelize";
-import config from "../../config";
+import config from "../../config/config.json";
 
-const User = sequelize.model("User");
+const db = require("../models")
 
 const AuthCheck = (req, res, next) => {
     if (!req.headers.authorization) {
@@ -19,7 +19,7 @@ const AuthCheck = (req, res, next) => {
         const userId = decoded.sub;
 
         //Checking if user exist
-        return User.findById(userId, (userErr, user) => {
+        return db.User.findById(userId, (userErr, user) => {
             if (userErr || !user) { return res.status(401).end() }
             
             req.user = user;

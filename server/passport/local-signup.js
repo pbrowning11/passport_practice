@@ -1,7 +1,7 @@
 import sequelize from "sequelize";
 import { Strategy as LocalStrategy } from "passport-local";
 
-const User = sequelize.model("User");
+const db = require("../models")
 
 const LocalSignup = new LocalStrategy({
     usernameField: "email",
@@ -15,13 +15,23 @@ const LocalSignup = new LocalStrategy({
         firstName: req.body.firstName.trim(),
         lastName: req.body.lastName.trim()
     };
-
-    const newUser = new User(userData);
-    newUser.save((err) => {
-        if (err) {
-            return done(err);
+    let newUser = req.body.data;
+    console.log("blah");
+    db.User.findOrCreate({
+        where: {
+        email: newUser.email
+        },
+        defaults: {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        username: newUser.username,
+        Password: newUser.password
         }
-        return done(null);
+    }).then(function (newUser) {
+        res.json(newUser)
+    }).catch(function (err) {
+        console.log(err);
+        res.json(err);
     });
 });
 

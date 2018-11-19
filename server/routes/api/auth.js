@@ -5,7 +5,9 @@ import authController from "../../controllers/authController";
 const router = express.Router();
 
 router.post("/signup", (req, res, next) => {
-    const validationResult = authController.validateRegistration(req.body);
+    console.log("signing up")
+    console.log(authController)
+    const validationResult = authController.validateSignUp(req.body);
     if (!validationResult.success) {
         return res.status(400).json({
             succes: false,
@@ -17,7 +19,6 @@ router.post("/signup", (req, res, next) => {
     return passport.authenticate("local-signup", err => {
         if (err) {
             if (err.name === "BulkWriteError" && err.code === 11000) {
-                //11000 Mongo Code Means Duplication of Email
                 return res.status(409).json({
                     success: false,
                     message: "Correct errors on form.",

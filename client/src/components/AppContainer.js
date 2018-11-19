@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Home from "./pages/home";
-import Login from "./pages/login";
-import SignUp from "./pages/signup";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import SignUp from "./pages/Signup";
 import NavTabs from "./NavTabs";
 
 class AppContainer extends Component {
@@ -20,10 +20,10 @@ class AppContainer extends Component {
                     currentPage={this.state.currentPage}
                     handlePageChange={this.handlePageChange}
                 />
-                {this.state.currentPage === "login" ? (
+                {this.state.currentPage === "Login" ? (
                     <Login />
                 ) : (
-                        this.state.currentPage === "signup" ? (
+                        this.state.currentPage === "Signup" ? (
                             <SignUp />
                         ) : (
                                 <Home />

@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import sequelize from "sequelize";
 import {Strategy as LocalStrategy} from "passport-local";
-import config from "../../config";
+import config from "../../config/config.json";
 
-const User = sequelize.model("User");
+const db = require("../models")
 
 const LocalLogin = new LocalStrategy({
     usernameField: "email",
@@ -16,7 +16,7 @@ const LocalLogin = new LocalStrategy({
         password: password.trim()
     };
 
-    return User.findOne({ email: userData.email}, (err, user) => {
+    return db.User.findOne({ email: userData.email}, (err, user) => {
         if (err) { return done(err) }
 
         if (!user) {
