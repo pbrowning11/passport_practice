@@ -8,10 +8,11 @@ const LocalSignup = new LocalStrategy({
     passwordField: "password",
     session: false,
     passReqToCallback: true
-}, (req, email, password, res) => {
+}, (email, password, done) => {
+    console.log(res)
     const userData = {
-        email: email.trim(),
-        password: password.trim(),
+        email: req.body.email,
+        password: req.body.password,
         username: req.body.username.trim(),
         firstName: req.body.firstName.trim(),
         lastName: req.body.lastName.trim()
@@ -20,7 +21,7 @@ const LocalSignup = new LocalStrategy({
     console.log(userData)
     db.User.findOrCreate({
         where: {
-        email: userData.email
+        email: email
         },
         defaults: {
         firstName: userData.firstName,
@@ -29,11 +30,16 @@ const LocalSignup = new LocalStrategy({
         Password: userData.password
         }
     })
-    // .then(function (newUser) {
-    //     res.json(newUser)
+    .then(function (result) {
+        console.log("user created")
+        let newUser = result[0].dataValues
+        return res.json(newUser)
+    })
+        
+        // console.log(newUser)
     // }).catch(function (err) {
     //     console.log(err);
-    //     res.json(err);
+        // res.send(err);
     // });
 });
 

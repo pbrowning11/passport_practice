@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import NavTabs from "./NavTabs";
+import Secret from "./Secret";
+import Auth from "../modules/auth";
 
 class AppContainer extends Component {
     state = {
@@ -12,6 +14,12 @@ class AppContainer extends Component {
     handlePageChange = (page) => {
         this.setState({ currentPage: page })
     };
+
+    secretPage = () => {
+        if (Auth.isUserAuthenticated()) {
+          return <Secret />;
+        }
+      };
 
     render() {
         return (
@@ -29,6 +37,7 @@ class AppContainer extends Component {
                                 <Home />
                             )
                     )}
+                {this.secretPage()}
             </div>
         )
     }

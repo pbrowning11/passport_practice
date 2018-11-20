@@ -31,6 +31,7 @@ class SignUp extends Component {
                 password: this.state.password
             })
             .then(res => {
+                console.log("clear?")
                 this.setState({
                     firstName: "",
                     lastName: "",

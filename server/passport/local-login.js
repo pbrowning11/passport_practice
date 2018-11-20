@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import sequelize from "sequelize";
 import {Strategy as LocalStrategy} from "passport-local";
 import config from "../../config/config.json";
 
@@ -10,7 +9,7 @@ const LocalLogin = new LocalStrategy({
     passwordField: "password",
     session: false,
     passReqToCallback: true
-}, (req, email, password, done) => {
+}, (email, password, done) => {
     const userData = {
         email: email.trim(),
         password: password.trim()

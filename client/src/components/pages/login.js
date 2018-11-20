@@ -22,7 +22,7 @@ class Login extends Component {
         } else {
             API.checkUser({
                 email: this.state.email,
-                password: this.state.email
+                password: this.state.password
             })
                 .then(res => {
                     Auth.authenticateUser(res.data.token)
